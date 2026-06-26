@@ -1,12 +1,17 @@
-import { Text } from "react-native"
-import MaskedView from 
+import MaskedView from "@react-native-masked-view/masked-view";
+import { LinearGradient, LinearGradientProps } from "expo-linear-gradient";
+import { StyleProp, Text, TextStyle } from "react-native";
 
-interfaceimport { Children } from "react"
- props {
-    Children: string;
+interface Props extends Omit<LinearGradientProps, "style"> {
+  children: string;
+  style?: StyleProp<TextStyle>;
 }
-export default function GradientText() {
-    return (
-        <MaskedView maskElement={<Text></Text>}></MaskedView>
-            )
+export default function GradientText({ children, style, ...props }: Props) {
+  return (
+    <MaskedView maskElement={<Text>{children}</Text>}>
+      <LinearGradient {...props}>
+        <Text style={[style, { opacity: 0 }]}>{children}</Text>
+      </LinearGradient>
+    </MaskedView>
+  )
 }
