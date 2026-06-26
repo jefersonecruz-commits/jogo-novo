@@ -1,10 +1,11 @@
 import MovingBackground from "@/components/MovingBackground";
+import Pipe from "@/components/Pipe";
 import { useAudioPlayer } from "expo-audio";
 import { Image, ImageBackground, Pressable, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Play() {
-  const jumpSound = useAudioPlayer(require("@/assets/audios/wing.mp3"));
+  const jumpSound = useAudioPlayer(require("@/assets/audios/pp.mp3"));
 
   function handleJump() {
     jumpSound.seekTo(0);
@@ -23,6 +24,7 @@ export default function Play() {
             source={require("@/assets/images/bird.png")}
             style={styles.bird}
           />
+          <Pipe gapY={500}/>
         </SafeAreaView>
       </Pressable>
 

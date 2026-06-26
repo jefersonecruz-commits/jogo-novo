@@ -1,3 +1,4 @@
+import GradientText from "@/components/GradientText";
 import MovingBackground from "@/components/MovingBackground";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
@@ -18,7 +19,14 @@ export default function Home() {
       style={styles.background}
     >
       <SafeAreaView style={styles.screen}>
-        <GradientText style={styles.title}>Flappy Bird</GradientText>
+        <GradientText
+        colors={["#FF8A00","#FFD600"]}
+        style={styles.title}
+        start={[0, 0]}
+        end={[1, 1]}
+        >
+          flip bird
+        </GradientText>
 
         <Link href="/play" asChild>
           <TouchableOpacity style={styles.button}>
@@ -54,9 +62,16 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 50,
     fontWeight: "bold",
-    color: "#FFD600",
     marginTop: 30,
     fontFamily: "LuckiestGuy",
+    textShadowColor: "#rgba(0, ,0 , 0, 0.5",
+    textShadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    textShadowRadius: 0,
+    paddingRight: 3,
+
   },
   button: {
     borderRadius: 100,

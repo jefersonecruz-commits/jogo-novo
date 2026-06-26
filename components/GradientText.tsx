@@ -8,7 +8,7 @@ interface Props extends Omit<LinearGradientProps, "style"> {
 }
 export default function GradientText({ children, style, ...props }: Props) {
   return (
-    <MaskedView maskElement={<Text>{children}</Text>}>
+    <MaskedView maskElement={<Text style={style}>{children}</Text>}>
       <LinearGradient {...props}>
         <Text style={[style, { opacity: 0 }]}>{children}</Text>
       </LinearGradient>
