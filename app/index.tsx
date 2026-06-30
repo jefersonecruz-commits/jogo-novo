@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
       width: 3,
       height: 3,
     },
-    textShadowRadius: 0,
+    textShadowRadius: 1,
     paddingRight: 3,
 
   },
