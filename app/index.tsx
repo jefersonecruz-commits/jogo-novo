@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 50,
-    fontWeight: "bold",
     marginTop: 30,
     fontFamily: "LuckiestGuy",
     textShadowColor: "#rgba(0, ,0 , 0, 0.5",

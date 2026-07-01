@@ -34,10 +34,10 @@ export default function Pipe({ gapY, onEnd }: props) {
     }, [translateX]);
 
     return <>
-        <Animated.View style={[styles.pipe, { left: width, top: 0, height: topHeight }, animatedStyle]} />;
+        <Animated.View style={[styles.pipe, { left: width, top: 0, height: topHeight }, animatedStyle]} />
         <Animated.View style={[styles.cap, { left: width-5, top: topHeight - CAP_HEIGHT, }, animatedStyle]} />
 
-        <Animated.View style={[styles.pipe, { left: width, top: bottomY, height: bottoHeight }, animatedStyle]} />;
+        <Animated.View style={[styles.pipe, { left: width, top: bottomY, height: bottoHeight }, animatedStyle]} />
         <Animated.View style={[styles.cap, { left: width-5, top: bottomY }, animatedStyle]} />
     </>
 }
