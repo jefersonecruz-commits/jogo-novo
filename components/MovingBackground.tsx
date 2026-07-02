@@ -1,4 +1,5 @@
 import { DURATION } from "@/constants/animation";
+import { GROUND_HEIGHT } from "@/constants/ground";
 import { useEffect } from "react";
 import { Dimensions, Image, StyleSheet, View } from "react-native";
 import Animated, {
@@ -58,6 +59,6 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 20,
+    height: GROUND_HEIGHT,
   },
 });

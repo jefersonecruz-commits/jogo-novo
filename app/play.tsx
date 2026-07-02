@@ -1,10 +1,14 @@
+import Bird from "@/components/Bird";
 import MovingBackground from "@/components/MovingBackground";
 import Pipe from "@/components/Pipe";
 import { DURATION } from "@/constants/animation";
+import { JUMP } from "@/constants/bird";
+import { GROUND_HEIGHT } from "@/constants/ground";
 import { CAP_HEIGHT, GAP_SIZE } from "@/constants/pipe";
+import { useGame } from "@/hooks/game";
 import { useAudioPlayer } from "expo-audio";
 import { useEffect, useState } from "react";
-import { Dimensions, Image, ImageBackground, Pressable, StyleSheet } from "react-native";
+import { Dimensions, ImageBackground, Pressable, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface obstacle {
@@ -13,12 +17,14 @@ interface obstacle {
 }
 
 export default function Play() {
-  const { height } = Dimensions.get("window")
+  const { height } = Dimensions.get("window");
+  const { velocity } = useGame();
   const [obstacles, setObstacles] = useState([] as obstacle[]);
   const jumpSound = useAudioPlayer(require("@/assets/audios/pulo.mp3"));
   const pointSound = useAudioPlayer(require("@/assets/audios/point.mp3"))
 
   function handleJump() {
+    velocity.value = JUMP
     try {
       jumpSound.seekTo(0);
       jumpSound.play();
@@ -26,10 +32,10 @@ export default function Play() {
   }
 
   function spawObstacle() {
-    setObstacles((oldValue) => [...oldValue, { 
-      id: Date.now().toString(), 
-      gapY: randomGapY() 
-    }, ]);
+    setObstacles((oldValue) => [...oldValue, {
+      id: Date.now().toString(),
+      gapY: randomGapY()
+    },]);
   }
 
   function removeObstacle(id: string) {
@@ -40,7 +46,7 @@ export default function Play() {
 
   function randomGapY() {
     const min = CAP_HEIGHT + GAP_SIZE / 2;
-    const max = height - CAP_HEIGHT - GAP_SIZE;
+    const max = height - CAP_HEIGHT - GROUND_HEIGHT- GAP_SIZE;
 
     return Math.random() * (max - min) + min;
   }
@@ -58,10 +64,7 @@ export default function Play() {
     >
       <Pressable onPress={handleJump} style={styles.background}>
         <SafeAreaView style={styles.screen}>
-          <Image
-            source={require("@/assets/images/bird.png")}
-            style={styles.bird}
-          />
+          <Bird />
           {obstacles.map((obstacle) =>
             <Pipe
               key={obstacle.id}
@@ -69,7 +72,7 @@ export default function Play() {
               onEnd={() =>
                 removeObstacle(obstacle.id)}
             />
-            )}
+          )}
         </SafeAreaView>
       </Pressable>
 
@@ -88,11 +91,5 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
   },
-  bird: {
-    width: 53,
-    height: 36,
-    position: "absolute",
-    top: "50%",
-    left: 100,
-  },
+
 });

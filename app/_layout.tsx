@@ -1,3 +1,4 @@
+import { GameProvider } from "@/hooks/game";
 import { LilitaOne_400Regular } from "@expo-google-fonts/lilita-one";
 import { LuckiestGuy_400Regular } from "@expo-google-fonts/luckiest-guy";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -48,9 +49,12 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="play" options={{ headerShown: false }} />
-    </Stack>
+    <GameProvider>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="play" options={{ headerShown: false }} />
+      </Stack>
+    </GameProvider>
+
   );
 }
