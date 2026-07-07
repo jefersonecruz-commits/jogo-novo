@@ -1,6 +1,5 @@
 import GradientText from "@/components/GradientText";
 import MovingBackground from "@/components/MovingBackground";
-import { useGame } from "@/hooks/game";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
 import {
@@ -13,8 +12,6 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
-  const { reset } = useGame();
-  
   return (
     <ImageBackground
       source={require("@/assets/images/background.png")}
@@ -28,16 +25,16 @@ export default function Home() {
         start={[0, 0]}
         end={[1, 1]}
         >
-          flip bird
+        game over
         </GradientText>
 
-        <Link href="/play" asChild>
-          <TouchableOpacity style={styles.button} onPress={reset}>
+        <Link href="/" asChild>
+          <TouchableOpacity style={styles.button}>
             <LinearGradient
               colors={["#FF8A00", "#FFD600"]}
               style={styles.buttonGradient}
             >
-              <Text style={styles.buttonText}>Jogar</Text>
+              <Text style={styles.buttonText}>voltar ao menu</Text>
             </LinearGradient>
           </TouchableOpacity>
         </Link>

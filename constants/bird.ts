@@ -1,4 +1,12 @@
-export const BIRD_HEIGHT = 36;
-export const BIRD_ASPECT_RATIO = 350 / 240;
-export const GRAVITY = 1500;
-export const JUMP = -500;
+export const BIRD = {
+    height: 36,
+    aspectRatio: 350 / 240, 
+    x: 100,
+
+    hitbox: {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+    }
+}

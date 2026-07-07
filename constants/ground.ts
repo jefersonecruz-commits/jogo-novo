@@ -1,1 +1,1 @@
-export const GROUND_HEIGHT = 20;
+export const GROUND_HEIGHT = 30;

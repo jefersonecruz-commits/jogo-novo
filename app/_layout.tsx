@@ -53,6 +53,7 @@ function RootLayoutNav() {
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="play" options={{ headerShown: false }} />
+        <Stack.Screen name="game-over" options={{ headerShown: false }} />
       </Stack>
     </GameProvider>
 
