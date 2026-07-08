@@ -40,7 +40,7 @@ export default function Home() {
         </Link>
 
         <Image
-          source={require("@/assets/images/bird.gif")}
+          source={require("@/assets/images/batman.png")}
           style={styles.bird}
         />
       </SafeAreaView>

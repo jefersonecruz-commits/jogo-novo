@@ -4,15 +4,21 @@ import { CAP_HEIGHT, GAP_SIZE, PIPE_WIDHT } from "@/constants/pipe";
 import { useGame } from "@/hooks/game";
 import { useEffect } from "react";
 import { Dimensions, Image, StyleSheet } from "react-native";
-import Animated, { Easing, runOnJS, useAnimatedReaction, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import Animated, {
+    Easing,
+    runOnJS,
+    useAnimatedReaction,
+    useAnimatedStyle,
+    useSharedValue,
+    withTiming,
+} from "react-native-reanimated";
 
-
-interface props {
+interface Props {
     gapY: number;
     onEnd: () => void;
 }
 
-export default function Pipe({ gapY, onEnd }: props) {
+export default function Pipe({ gapY, onEnd }: Props) {
     const { birdY, gameOver } = useGame();
     const { height, width } = Dimensions.get("window");
     const topHeight = gapY - GAP_SIZE / 2;
@@ -23,7 +29,7 @@ export default function Pipe({ gapY, onEnd }: props) {
     const disabled = useSharedValue(false);
 
     const animatedStyle = useAnimatedStyle(() => ({
-        transform: [{ translateX: -translateX.value }]
+        transform: [{ translateX: -translateX.value }],
     }));
 
     useEffect(() => {
@@ -31,11 +37,10 @@ export default function Pipe({ gapY, onEnd }: props) {
             width,
             {
                 duration: DURATION,
-                easing: Easing.linear
+                easing: Easing.linear,
             },
             () => {
                 if (translateX.value === width) {
-                    disabled.value = true;
                     runOnJS(onEnd)();
                 }
             },
@@ -49,16 +54,20 @@ export default function Pipe({ gapY, onEnd }: props) {
 
             if (disabled.value) return;
 
-            const hitX = BIRD.x + BIRD.height * BIRD.aspectRatio > width - translateX && BIRD.x < width - translateX + PIPE_WIDHT;
+            const hitX =
+                BIRD.x + BIRD.height * BIRD.aspectRatio - BIRD.hitbox.right >
+                width - translateX &&
+                BIRD.x + BIRD.hitbox.left < width - translateX + PIPE_WIDHT;
 
             const hitTop = birdY + BIRD.hitbox.top < gapY - GAP_SIZE / 2;
-            const hitBottom = 
-            birdY + BIRD.height - BIRD.hitbox.bottom > gapY + GAP_SIZE / 2;
+            const hitBottom =
+                birdY + BIRD.height - BIRD.hitbox.bottom > gapY + GAP_SIZE / 2;
 
             if (hitX && (hitTop || hitBottom)) {
+                disabled.value = true;
                 runOnJS(gameOver)();
             }
-        }
+        },
     );
 
     return (
@@ -84,6 +93,11 @@ export default function Pipe({ gapY, onEnd }: props) {
                     animatedStyle,
                 ]}
             >
+                <Image
+                    source={require("@/assets/images/cap.png")}
+                    style={[styles.image, { transform: [{ rotate: "180deg" }] }]}
+                    resizeMode="stretch"
+                />
             </Animated.View>
 
             <Animated.View
@@ -103,6 +117,11 @@ export default function Pipe({ gapY, onEnd }: props) {
             <Animated.View
                 style={[styles.cap, { left: width - 5, top: bottomY }, animatedStyle]}
             >
+                <Image
+                    source={require("@/assets/images/cap.png")}
+                    style={styles.image}
+                    resizeMode="stretch"
+                />
             </Animated.View>
         </>
     );
@@ -112,21 +131,14 @@ const styles = StyleSheet.create({
     pipe: {
         position: "absolute",
         width: PIPE_WIDHT,
-        backgroundColor: "#2ecc71",
-        borderLeftWidth: 4,
-        borderRightWidth: 4,
-        borderColor: "#1b5e20",
     },
     cap: {
         position: "absolute",
         width: PIPE_WIDHT + 10,
         height: CAP_HEIGHT,
-        backgroundColor: "#2ecc71",
-        borderWidth: 4,
-        borderColor: "#1b5e20",
     },
     image: {
         width: "100%",
-        height: "100%"
-    }
+        height: "100%",
+    },
 });

@@ -14,6 +14,7 @@ interface GameContextProps {
 }
 
 const GameContext = createContext({} as GameContextProps);
+
 export function GameProvider({ children }: { children: ReactNode }) {
     const { height } = Dimensions.get("window");
     const birdY = useSharedValue(height / 2);
@@ -21,13 +22,12 @@ export function GameProvider({ children }: { children: ReactNode }) {
     const [score, setScore] = useState(0);
     const hitAudio = useAudioPlayer(require("@/assets/audios/h.mp3"))
 
-
-
     function  reset() {
         setScore(0);
         birdY.value = height / 2;
         velocity.value = 0;
     }
+
     function gameOver() { 
         router.replace("/game-over");
         try {
@@ -35,11 +35,13 @@ export function GameProvider({ children }: { children: ReactNode }) {
             hitAudio.play();
         }catch (error) {}
     }
+
     return (
-        <GameContext.Provider value={{ birdY, velocity, score, setScore, reset, gameOver }}>
+        <GameContext.Provider value={{ birdY, velocity, score, setScore, reset, gameOver }}
+        >
             {children}
         </GameContext.Provider>
-    )
+    );
 }
 
 export const useGame = () => useContext(GameContext);

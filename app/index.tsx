@@ -14,7 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
   const { reset } = useGame();
-  
+
   return (
     <ImageBackground
       source={require("@/assets/images/background.png")}
@@ -23,15 +23,15 @@ export default function Home() {
     >
       <SafeAreaView style={styles.screen}>
         <GradientText
-        colors={["#FF8A00","#FFD600"]}
-        style={styles.title}
-        start={[0, 0]}
-        end={[1, 1]}
+          colors={["#FF8A00", "#FFD600"]}
+          style={styles.title}
+          start={[0, 0]}
+          end={[1, 1]}
         >
-          flip bird
+          Flappy Bird
         </GradientText>
 
-        <Link href="/play" asChild>
+        <Link href="/play" asChild replace>
           <TouchableOpacity style={styles.button} onPress={reset}>
             <LinearGradient
               colors={["#FF8A00", "#FFD600"]}
@@ -43,7 +43,7 @@ export default function Home() {
         </Link>
 
         <Image
-          source={require("@/assets/images/bird.gif")}
+          source={require("@/assets/images/batman.png")}
           style={styles.bird}
         />
       </SafeAreaView>
@@ -66,14 +66,13 @@ const styles = StyleSheet.create({
     fontSize: 50,
     marginTop: 30,
     fontFamily: "LuckiestGuy",
-    textShadowColor: "#rgba(0, ,0 , 0, 0.5",
+    textShadowColor: "rgba(0, 0, 0, 0.5)",
     textShadowOffset: {
       width: 3,
       height: 3,
     },
     textShadowRadius: 1,
     paddingRight: 3,
-
   },
   button: {
     borderRadius: 100,

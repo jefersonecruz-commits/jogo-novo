@@ -12,9 +12,11 @@ export default function BackgroundSound({ source, loop = true }: Props) {
 
   useFocusEffect(
     useCallback(() => {
-      audio.seekTo(0);
-      audio.loop = loop;
-      audio.play();
+      try {
+        audio.seekTo(0);
+        audio.loop = loop;
+        audio.play();
+      } catch (error) {}
 
       return () => {
         try {
